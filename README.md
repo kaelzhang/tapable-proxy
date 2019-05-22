@@ -32,7 +32,7 @@ const {
   SET_HOOKS
 } = require('tapable-proxy')
 
-// Create a fake hook
+// Create a fake hook proxy
 const hooks = create()
 
 hooks.afterEmit.tap('MyPlugin', compilation => {
@@ -49,7 +49,11 @@ hooks[SET_HOOKS](compiler.hooks)
 ### hooks[APPLY_TAPS](realHooks, clean)
 
 - **realHooks** `{[string]: Tapable}` the real [tapable](https://www.npmjs.com/package/tapable) hooks
-- **clean?** `boolean=true`
+- **clean?** `boolean=true` If `true`, the tapped handlers will be maintained after applied. Defaults to `true`
+
+### hooks[SET_HOOKS](realHooks)
+
+Set the underlying hooks of the proxy as `realHooks`, and after that follop-up taps will directly tap into `realHooks`.
 
 ## License
 
