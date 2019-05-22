@@ -1,6 +1,6 @@
 {
   "name": "tapable-proxy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The pseudo tapable based on Proxy",
   "main": "src/index.js",
   "scripts": {
