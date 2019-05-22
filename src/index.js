@@ -91,6 +91,11 @@ class Handler {
 
 const create = () => {
   const handler = new Handler()
+
+  // Attention:
+  // proxy is 95% slower than normal property access
+  // https://jsperf.com/proxy-vs-normal-get
+  // But sometimes, it helps
   return new Proxy({}, handler)
 }
 
