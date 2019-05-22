@@ -40,10 +40,10 @@ hooks.afterEmit.tap('MyPlugin', compilation => {
 })
 
 // Apply all taps to webpack compiler hooks
-hooks[APPLY_TAPS](compiler.hooks)
+hooks\[APPLY_TAPS](compiler.hooks)
 
 // Proxy the follow-up taps to compiler hooks
-hooks[SET_HOOKS](compiler.hooks)
+hooks\[SET_HOOKS](compiler.hooks)
 ```
 
 ### hooks[APPLY_TAPS](realHooks, clean)
