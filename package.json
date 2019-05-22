@@ -44,5 +44,8 @@
     "eslint": "^5.16.0",
     "eslint-plugin-import": "^2.17.2",
     "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "err-object": "^4.3.1"
   }
 }

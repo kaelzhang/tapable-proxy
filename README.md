@@ -15,7 +15,7 @@
 
 # tapable-proxy
 
-The pseudo tapable based on Proxy
+The pseudo tapable based on [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy). `tapable-proxy` could create fake hooks which can be tapped even before the creation of real hooks.
 
 ## Install
 
@@ -26,7 +26,18 @@ $ npm i tapable-proxy
 ## Usage
 
 ```js
-const tapable_proxy = require('tapable-proxy')
+const {
+  create,
+  APPLY
+} = require('tapable-proxy')
+const hooks = create()
+
+hooks.afterEmit.tap('MyPlugin', compilation => {
+  // ...
+})
+
+// Apply to webpack compiler hooks
+hooks[APPLY](compiler.hooks)
 ```
 
 ## License
