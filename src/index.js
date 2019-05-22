@@ -1,6 +1,7 @@
-const {errorInvalidHookName} = require('./error')
+const {isObject} = require('core-util-is')
+const {errorInvalidHookName, error} = require('./error')
 
-const APPLY = Symbol('apply')
+const APPLY_TAPS = Symbol('apply')
 const SET_HOOKS = Symbol('set-hook')
 
 class FakeHook {
@@ -8,13 +9,15 @@ class FakeHook {
     this._taps = Object.create(null)
   }
 
-  [APPLY] (realHook) {
-    for (const [type, taps] of this._taps) {
+  [APPLY_TAPS] (realHook, clean) {
+    for (const [type, taps] of Object.entries(this._taps)) {
       for (const {name, handler} of taps) {
         realHook[type](name, handler)
       }
 
-      taps.length = 0
+      if (clean) {
+        taps.length = 0
+      }
     }
   }
 
@@ -39,29 +42,37 @@ class FakeHook {
   }
 }
 
+const checkRealHooks = hooks => {
+  if (!isObject(hooks)) {
+    throw error('INVALID_REAL_HOOKS', hooks)
+  }
+}
+
 class Handler {
   constructor () {
     this._hooks = Object.create(null)
     this._apply = this._apply.bind(this)
-    this._setHook = this._setHook.bind(this)
+    this._setHooks = this._setHooks.bind(this)
   }
 
-  _apply (realHooks) {
+  _apply (realHooks, clean = true) {
+    checkRealHooks(realHooks)
     for (const [name, fakeHook] of Object.entries(this._hooks)) {
       if (!(name in realHooks)) {
         throw errorInvalidHookName(name, realHooks)
       }
 
-      fakeHook[APPLY](realHooks[name])
+      fakeHook[APPLY_TAPS](realHooks[name], clean)
     }
   }
 
-  _setHooks (hooks) {
-    this._hooks = hooks
+  _setHooks (realHooks) {
+    checkRealHooks(realHooks)
+    this._hooks = realHooks
   }
 
   get (target, prop) {
-    if (prop === APPLY) {
+    if (prop === APPLY_TAPS) {
       return this._apply
     }
 
@@ -85,6 +96,6 @@ const create = () => {
 
 module.exports = {
   create,
-  APPLY,
+  APPLY_TAPS,
   SET_HOOKS
 }

@@ -28,17 +28,28 @@ $ npm i tapable-proxy
 ```js
 const {
   create,
-  APPLY
+  APPLY_TAPS,
+  SET_HOOKS
 } = require('tapable-proxy')
+
+// Create a fake hook
 const hooks = create()
 
 hooks.afterEmit.tap('MyPlugin', compilation => {
   // ...
 })
 
-// Apply to webpack compiler hooks
-hooks[APPLY](compiler.hooks)
+// Apply all taps to webpack compiler hooks
+hooks[APPLY_TAPS](compiler.hooks)
+
+// Proxy the follow-up taps to compiler hooks
+hooks[SET_HOOKS](compiler.hooks)
 ```
+
+### hooks[APPLY_TAPS](realHooks, clean)
+
+- **realHooks** `{[string]: Tapable}` the real [tapable](https://www.npmjs.com/package/tapable) hooks
+- **clean?** `boolean=true`
 
 ## License
 
