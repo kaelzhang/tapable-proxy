@@ -38,7 +38,7 @@
     "url": "https://github.com/kaelzhang/tapable-proxy/issues"
   },
   "devDependencies": {
-    "@ostai/eslint-config": "^3.4.3",
+    "@ostai/eslint-config": "^3.5.0",
     "ava": "^2.3.0",
     "codecov": "^3.5.0",
     "delay": "^4.3.0",
