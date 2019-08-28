@@ -1,6 +1,6 @@
 {
   "name": "tapable-proxy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The pseudo tapable based on Proxy",
   "main": "src/index.js",
   "scripts": {
@@ -38,17 +38,17 @@
     "url": "https://github.com/kaelzhang/tapable-proxy/issues"
   },
   "devDependencies": {
-    "@ostai/eslint-config": "^3.1.1",
-    "ava": "^1.4.1",
+    "@ostai/eslint-config": "^3.4.3",
+    "ava": "^2.3.0",
     "codecov": "^3.5.0",
-    "delay": "^4.2.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-import": "^2.17.2",
+    "delay": "^4.3.0",
+    "eslint": "^6.2.2",
+    "eslint-plugin-import": "^2.18.2",
     "nyc": "^14.1.1",
     "tapable": "^1.1.3"
   },
   "dependencies": {
     "core-util-is": "^1.0.2",
-    "err-object": "^4.3.1"
+    "err-object": "^5.1.4"
   }
 }
